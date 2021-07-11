@@ -1,0 +1,155 @@
+<template>
+  <section>
+    <div class="my-container container mt-3">
+      <br />
+      <div class="media border p-3">
+        <div class="media-body">
+          <div class="main-voice shadow p-4 mb-4 bg-white">
+            <h4 class="d-flex justify-content-between align-items-center">
+              <span
+                ><img
+                  src="avatar.jpeg"
+                  alt="John Doe"
+                  class="mr-2 rounded-circle"
+                  style="width: 40px"
+                />
+                {{ selecteduser.name }}</span
+              >
+
+              <small
+                ><i
+                  ><small>
+                    join date {{ selecteduser.joinDate }}/ birthdate
+                    {{ selecteduser.birthDate }}</small
+                  >
+                </i></small
+              >
+              <small v-if="selecteduser.name !== userName"
+                ><button class="btn btn-success" @click="followUser()">
+                  {{ followCheck }}
+                </button>
+                <button class="btn btn-danger" @click="blockUser()">
+                  {{ blockCheck }}
+                </button>
+                <button class="btn btn-primary" @click="enterChat()">
+                  chat
+                </button></small
+              >
+            </h4>
+            <p class="ml-5 pl-2">
+              {{ selecteduser.biography }}
+            </p>
+          </div>
+          <div class="comment-body">
+            <div
+              v-for="currentComment in selecteduser.voices"
+              :key="currentComment.id"
+              class="media pl-5 pt-3"
+            >
+              <div
+                class="media-body voice-card shadow p-3 bg-white"
+                @click="openVoicePan(currentComment.id)"
+              >
+                <h4 class="d-flex justify-content-between align-items-center">
+                  <span>
+                    <img
+                      src="avatar.jpeg"
+                      alt="John Doe"
+                      class="mr-2 rounded-circle"
+                      style="width: 40px"
+                    />
+                    {{ currentComment.sender }}</span
+                  >
+                  <small class="mr-4"
+                    ><i
+                      ><small>Posted on {{ currentComment.date }}</small>
+                    </i></small
+                  >
+                </h4>
+                <p class="ml-5 pl-3">
+                  {{ currentComment.content }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      v-if="selecteduser.name === userName"
+      class="input-group comment-form pr-2 pl-2"
+    >
+      <textarea
+        class="form-control"
+        name="chatTextArea"
+        id="chatTextArea"
+        cols="100"
+        rows="1"
+        placeholder="new voice"
+      ></textarea>
+      <div class="input-group-append">
+        <button class="btn btn-primary">sent</button>
+      </div>
+    </div>
+  </section>
+</template>
+
+<script>
+import { mapState } from 'vuex'
+
+export default {
+  computed: {
+    ...mapState(['selecteduser', 'followed', 'userName', 'blocked']),
+    followCheck() {
+      if (this.followed.includes(this.selecteduser.name)) return 'unfollow'
+      return 'follow'
+    },
+    blockCheck() {
+      if (this.blocked.includes(this.selecteduser.name)) return 'unblock'
+      return 'block'
+    },
+  },
+  data() {
+    return {
+      textToComment: '',
+    }
+  },
+  methods: {
+    enterChat() {
+      this.$store.commit('openChat', this.selecteduser.name)
+    },
+    followUser() {},
+    blockUser() {},
+    openVoicePan(id) {
+      this.$store.commit('openVoicePan')
+    },
+  },
+}
+</script>
+
+<style lang="css" scoped>
+.comment-form {
+  box-shadow: 0px -7px 5px 0 rgba(0, 0, 0, 0.2);
+}
+
+.my-container {
+  background-color: whitesmoke;
+}
+
+.comment-body {
+  overflow-y: scroll;
+  max-height: 60vh;
+}
+
+.main-voice {
+  padding: 5px;
+  border: 2px solid;
+  border-radius: 5px;
+}
+
+.voice-card:hover {
+  cursor: pointer;
+  border: 1px solid rgb(139, 139, 139);
+}
+/* Bordered form */
+</style>
