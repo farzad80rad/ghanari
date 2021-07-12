@@ -110,7 +110,7 @@
     </div>
     <div class="container">
       <!-- The Modal -->
-      <div class="modal" id="forwardModal">
+      <div class="modal fade" id="forwardModal">
         <div class="modal-dialog">
           <div class="modal-content">
             <!-- Modal Header -->

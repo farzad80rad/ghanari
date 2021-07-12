@@ -100,7 +100,7 @@
         <button class="btn btn-primary">sent</button>
       </div>
     </div>
-    <div class="modal" id="logModal">
+    <div class="modal fade" id="logModal">
       <div class="modal-dialog">
         <div class="modal-content">
           <!-- Modal Header -->

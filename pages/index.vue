@@ -8,6 +8,7 @@
         <voicePan v-if="state === 'voice'" />
         <messagePan v-else-if="state == 'chat'" />
         <userPan v-else-if="state === 'user'" />
+        <emptyPage v-else />
       </div>
     </div>
     <login v-else-if="state === 'login'" />
@@ -23,6 +24,7 @@ import submit from '@/components/submit.vue'
 import VoicePan from '../components/voicePan.vue'
 import MessagePan from '../components/messagePan.vue'
 import UserPan from '../components/userPan.vue'
+import EmptyPage from '../components/emptyPage.vue'
 
 export default {
   components: {
@@ -32,6 +34,7 @@ export default {
     VoicePan,
     MessagePan,
     UserPan,
+    EmptyPage,
   },
   computed: {
     ...mapState(['state']),
