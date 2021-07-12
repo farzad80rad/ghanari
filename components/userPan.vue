@@ -35,6 +35,15 @@
                   chat
                 </button></small
               >
+              <small v-else>
+                <button
+                  class="btn btn-primary"
+                  data-toggle="modal"
+                  data-target="#logModal"
+                >
+                  Logins Log
+                </button>
+              </small>
             </h4>
             <p class="ml-5 pl-2">
               {{ selecteduser.biography }}
@@ -91,6 +100,28 @@
         <button class="btn btn-primary">sent</button>
       </div>
     </div>
+    <div class="modal" id="logModal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h3 class="modal-title text-center">logins</h3>
+            <button type="button" class="close" data-dismiss="modal">×</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <div class="overflow-auto container text-wrap">
+              <div v-for="log in loginLogs" class="list-group" :key="log">
+                <div class="list-group-item list-group-item-action">
+                  {{ log }}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -99,7 +130,13 @@ import { mapState } from 'vuex'
 
 export default {
   computed: {
-    ...mapState(['selecteduser', 'followed', 'userName', 'blocked']),
+    ...mapState([
+      'selecteduser',
+      'followed',
+      'userName',
+      'blocked',
+      'loginLogs',
+    ]),
     followCheck() {
       if (this.followed.includes(this.selecteduser.name)) return 'unfollow'
       return 'follow'

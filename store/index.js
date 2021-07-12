@@ -35,6 +35,7 @@ export const state = () => ({
             { "sender": "p2", "content": "somthing", "date": "2020/09/2 23:34:20", "id": 5 },
         ]
     },
+    loginLogs: ["2020/10/04 20:10:03", "2020/10/04 20:10:03", "2020/10/04 20:10:03", "2020/10/04 20:10:03", "2020/10/04 20:10:03"],
     selectedChatName: '',
     selectedMessage: [{ "id": 0, "sender": "p1", "voiceSender": "", "content": "hi", "date": "2020/10/04 20:10:03" },
     { "sender": "p2", "id": 1, "voiceSender": "", "content": "hi", "date": "2020/10/04 20:10:03" },
@@ -73,6 +74,11 @@ export const mutations = {
     },
     openUserPan(state) {
         state.state = 'user';
+    },
+};
+export const actions = {
+    tryToSubmit({ commit }) {
+        commit('goToLogin');
     }
 };
 

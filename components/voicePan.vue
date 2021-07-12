@@ -50,6 +50,7 @@
                   <a
                     v-for="person in likedBy"
                     class="text-secondary ml-3 user-text-liked"
+                    @click="openUserPan()"
                     :key="person"
                   >
                     {{ person }}
