@@ -79,9 +79,9 @@
                 class="form-group row justify-content-center align-items-center"
               >
                 <input
-                  type="submit"
+                  type="button"
                   name="submit"
-                  @click="tryToSubmit()"
+                  @click="signup(username,fistName,secondName,password,biography,BirthDate)"
                   class="btn btn-info mb-4 btn-md col-3"
                   value="submit"
                 />
@@ -114,7 +114,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'tryToSubmit', //also supports payload `this.nameOfAction(amount)`
+      'signup', //also supports payload `this.nameOfAction(amount)`
     ]),
     goTologin() {
       this.$store.commit('goTologin')

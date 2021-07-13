@@ -5,7 +5,7 @@
       <div id="login-row" class="row justify-content-center align-items-center">
         <div id="login-column" class="col-md-6">
           <div id="login-box" class="col-md-12">
-            <form id="login-form" class="form" action="" method="post">
+            <form id="login-form" class="form">
               <h3 class="text-center text-info">Login</h3>
               <div class="form-group">
                 <label for="username" class="text-info">Username:</label><br />
@@ -31,7 +31,7 @@
                 class="form-group row justify-content-center align-items-center"
               >
                 <input
-                  type="submit"
+                  type="button"
                   name="submit"
                   @click="tryToLogin()"
                   class="btn btn-info btn-md col-3"
@@ -51,16 +51,26 @@
 </template>
 
 <script>
-export default {
+import { mapActions } from 'vuex';
+  
+  export default {
+
   data() {
     return {
       username: '',
       password: '',
     }
   },
+
+  
+
   methods: {
+      ...mapActions([
+        'login', //also supports payload `this.nameOfAction(amount)` 
+      ]),
     tryToLogin() {
-      this.$store.commit('loginByName', this.username)
+      console.log("haaaaaaaaaaaaaaaaaaaa")
+      this.login(this.username,this.password)
     },
     goToSubmit() {
       this.$store.commit('goToSubmit')
