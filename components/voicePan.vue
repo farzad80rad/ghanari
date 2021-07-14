@@ -4,15 +4,15 @@
       <br />
       <div class="media border p-3">
         <div class="media-body">
-          <a>
+          <a class="opacity-4">
             <div class="main-voice shadow p-2 mb-4 bg-white">
               <h4 class="d-flex justify-content-between align-items-center">
                 <a class="btn" @click="openUserPan(selectedVoice.sender)">
                   <img
-                    src="avatar.jpeg"
+                    src="download.jfif"
                     alt="John Doe"
                     class="mr-2 rounded-circle"
-                    style="width: 40px"
+                    style="width: 40px;"
                   />
                   {{ selectedVoice.sender }}
                 </a>
@@ -25,9 +25,14 @@
                   >
                     forward
                   </button>
-                  <button type="button" @click="$store.dispatch('likeVoice')" class="btn mr-3 btn-primary">
+                  <button
+                    type="button"
+                    @click="$store.dispatch('likeVoice')"
+                    class="btn btn-primary"
+                  >
                     like
                   </button>
+                  <span class="mr-3">{{ selectedVoice.liked }}</span>
                   <em>
                     <small>Posted on {{ selectedVoice.date }}</small>
                   </em>
@@ -38,7 +43,6 @@
                 {{ selectedVoice.content }}
               </p>
               <div class="ml-5 pl-4">
-                Likes {{ selectedVoice.liked }}
                 <button
                   @click="showLikedBy()"
                   type="button"
@@ -50,7 +54,7 @@
                   <a
                     v-for="person in likedBy"
                     class="text-secondary ml-3 user-text-liked"
-                    @click="$store.dispatch('getVoiceOfUser',person.username)"
+                    @click="$store.dispatch('getVoiceOfUser', person.username)"
                     :key="person"
                   >
                     {{ person.username }}
@@ -68,15 +72,15 @@
             >
               <div
                 class="media-body comment-card shadow p-3 bg-white"
-                @click="$store.dispatch('openVoicePan',currentComment)"
+                @click="$store.dispatch('openVoicePan', currentComment)"
               >
                 <h4 class="d-flex justify-content-between align-items-center">
                   <span>
                     <img
-                      src="avatar.jpeg"
+                      src="download.jfif"
                       alt="John Doe"
                       class="mr-2 rounded-circle"
-                      style="width: 40px"
+                      style="width: 40px;"
                     />
                     {{ currentComment.publisher }}</span
                   >
@@ -95,20 +99,6 @@
         </div>
       </div>
     </div>
-    <div class="input-group comment-form pr-2 pl-2">
-      <textarea
-        class="form-control"
-        name="chatTextArea"
-        id="chatTextArea"
-        v-model="textToComment"
-        cols="100"
-        rows="1"
-        placeholder="new comment"
-      ></textarea>
-      <div class="input-group-append">
-        <button class="btn btn-primary" @click=" $store.dispatch('sendComment',textToComment)">sent</button>
-      </div>
-    </div>
     <div class="container">
       <!-- The Modal -->
       <div class="modal fade" id="forwardModal">
@@ -125,17 +115,17 @@
             <!-- Modal body -->
             <div class="modal-body">
               <div class="overflow-auto container text-wrap">
-                <div v-for="item in contacts"  class="list-group" :key="item">
+                <div v-for="item in contacts" class="list-group" :key="item">
                   <a
                     class="list-group-item list-group-item-action"
-                     @click="$store.dispatch('forwardMessage',item)" 
-                     data-dismiss="modal"
+                    @click="$store.dispatch('forwardMessage', item)"
+                    data-dismiss="modal"
                   >
                     <img
-                      src="avatar.jpeg"
+                      src="download.jfif"
                       alt="John Doe"
                       class="mr-2 rounded-circle"
-                      style="width: 30px"
+                      style="width: 30px;"
                     />
                     {{ item }}
                   </a>
@@ -153,44 +143,94 @@
         </div>
       </div>
     </div>
+
+    <div class="container">
+      <!-- The Modal -->
+      <div class="modal fade" id="typeNewVoice">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">
+                ×
+              </button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+              <div class="overflow-auto container text-wrap">
+                <div class="input-group comment-form pr-2 pl-2">
+                  <textarea
+                    class="form-control"
+                    name="chatTextArea"
+                    id="chatTextArea"
+                    v-model="textToComment"
+                    cols="100"
+                    rows="1"
+                    placeholder="new comment"
+                  ></textarea>
+                  <div class="input-group-append">
+                    <button
+                      class="btn btn-primary"
+                      data-dismiss="modal"
+                      @click="$store.dispatch('sendComment', textToComment)"
+                    >
+                      sent
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button
+      type="button"
+      class="btn sendBtn ml-3 mr-3 btn-primary"
+      data-toggle="modal"
+      data-target="#typeNewVoice"
+    >
+      +
+    </button>
   </section>
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 
 export default {
   computed: {
-    ...mapState(['selectedVoice', 'likedBy', 'contacts']),
+    ...mapState(["selectedVoice", "likedBy", "contacts"]),
   },
   data() {
     return {
-      textToComment: '',
+      textToComment: "",
       showLikedBool: false,
-    }
+    };
   },
   methods: {
-    forwardMessage(){
-      console.log("forwardMessage")
-      this.$store.dispatch('forwardMessage',name)
+    forwardMessage() {
+      console.log("forwardMessage");
+      this.$store.dispatch("forwardMessage", name);
     },
     showLikedBy() {
-      this.$store.dispatch('getlikeList');
+      this.$store.dispatch("getlikeList");
       this.showLikedBool = !this.showLikedBool;
     },
 
     openUserPan(name) {
       console.log("openUserPan");
-      this.$store.dispatch('getVoiceOfUser',name);
+      this.$store.dispatch("getVoiceOfUser", name);
       console.log(" out openUserPan");
     },
 
     openVoicePan(id) {
-      this.$store.commit('openVoicePan')
+      this.$store.commit("openVoicePan");
     },
     forwardMessage() {},
   },
-}
+};
 </script>
 
 <style lang="css" scoped>
@@ -199,7 +239,7 @@ export default {
 }
 
 .my-container {
-  background-color: whitesmoke;
+  background: rgba(76, 175, 80, 0.1);
 }
 
 .comment-body {
@@ -222,6 +262,16 @@ export default {
 .comment-card:hover {
   cursor: pointer;
   border: 1px solid rgb(139, 139, 139);
+  opacity: 1;
+}
+.sendBtn {
+  position: fixed;
+  right: 30px;
+  bottom: 30px;
+}
+.comment-card {
+  opacity: 0.8;
+  border-radius: 10px;
 }
 /* Bordered form */
 </style>

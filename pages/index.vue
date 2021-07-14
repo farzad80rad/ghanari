@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="body">
     <div class="row" v-if="state !== 'submit' && state !== 'login'">
       <div class="col-4">
         <leftPan />
@@ -8,7 +8,6 @@
         <voicePan v-if="state === 'voice'" />
         <messagePan v-else-if="state == 'chat'" />
         <userPan v-else-if="state === 'user'" />
-        <emptyPage v-else />
       </div>
     </div>
     <login v-else-if="state === 'login'" />
@@ -24,7 +23,6 @@ import submit from '@/components/submit.vue'
 import VoicePan from '../components/voicePan.vue'
 import MessagePan from '../components/messagePan.vue'
 import UserPan from '../components/userPan.vue'
-import EmptyPage from '../components/emptyPage.vue'
 
 export default {
   components: {
@@ -34,7 +32,6 @@ export default {
     VoicePan,
     MessagePan,
     UserPan,
-    EmptyPage,
   },
   computed: {
     ...mapState(['state']),
@@ -46,6 +43,12 @@ export default {
 html {
   box-sizing: border-box;
 }
+
+.body{
+ height: 100vh;
+  background-image: url('../static/loginBack.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;}
 
 html,
 body,

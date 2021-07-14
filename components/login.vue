@@ -1,53 +1,45 @@
 <template>
-  <div class="body" id="login">
-    <h3 class="text-center text-white pt-5">Ghanari</h3>
-    <div class="container">
-      <div id="login-row" class="row justify-content-center align-items-center">
-        <div id="login-column" class="col-md-6">
-          <div id="login-box" class="col-md-12">
-            <form id="login-form" class="form">
-              <h3 class="text-center text-info">Login</h3>
-              <div class="form-group">
-                <label for="username" class="text-info">Username:</label><br />
-                <input
-                  type="text"
-                  v-model="data_username"
-                  name="username"
-                  id="username"
-                  class="form-control"
-                />
-              </div>
-              <div class="form-group">
-                <label for="password" class="text-info">Password:</label><br />
-                <input
-                  type="text"
-                  name="password"
-                  id="password"
-                  v-model="data_password"
-                  class="form-control"
-                />
-              </div>
-              <div
-                class="form-group row justify-content-center align-items-center"
-              >
-                <input
-                  type="button"
-                  name="submit"
-                  @click="tryToLogin()"
-                  class="btn btn-info btn-md col-3"
-                  value="submit"
-                />
-              </div>
-              <br />
-              <div id="register-link" @click="goToSubmit()" class="text-right">
-                <a href="#" class="text-info">Register here</a>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="top_pad">
+  <div class="container ">
+	<div class="d-flex justify-content-center align-items-center text-center h-100">
+		<div class="card">
+			<div class="card-header">
+				<h3>Sign In</h3>
+				<div class="d-flex justify-content-end social_icon">
+					<span><i class="fab fa-facebook-square"></i></span>
+					<span><i class="fab fa-google-plus-square"></i></span>
+					<span><i class="fab fa-twitter-square"></i></span>
+				</div>
+			</div>
+			<div class="card-body">
+				<form>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-user"></i></span>
+						</div>
+						<input type="text" v-model="data_username" class="form-control" placeholder="username">
+					</div>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-key"></i></span>
+						</div>
+						<input type="password" v-model="data_password" class="form-control" placeholder="password">
+					</div>
+					<div class="form-group justify-content-center align-items-center row">
+						<input type="button" @click="tryToLogin()" value="Login" class="btn col-3  float-right login_btn">
+					</div>
+				</form>
+			</div>
+			<div class="card-footer">
+				<div class="d-flex justify-content-center links">
+					Don't have an account?<a @click="goToSubmit()" class="link" href="#" >Sign Up</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
 </template>
 
 <script>
@@ -73,32 +65,102 @@
     },
   },
 }
+
 </script>
 
 <style lang="css" scoped>
-.body {
-  margin: 0;
-  padding: 0;
-  background-color: #17a2b8;
+
+@import url('https://fonts.googleapis.com/css?family=Numans');
+
+.top_pad{
+  background-color: chocolate;
   height: 100vh;
+  background-image: url('../static/loginBack.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-family: 'Numans', sans-serif;
+
 }
-#login .container #login-row #login-column #login-box {
-  margin-top: 120px;
-  max-width: 600px;
-  height: 320px;
-  border: 1px solid #9c9c9c;
-  background-color: #eaeaea;
+
+.container{
+height: 100%;
+align-content: center;
 }
-#login .container #login-row #login-column #login-box #login-form {
-  padding: 20px;
+
+.card{
+height: 370px;
+margin-top: auto;
+margin-bottom: auto;
+width: 400px;
+background-color: rgba(0,0,0,0.5) !important;
 }
-#login
-  .container
-  #login-row
-  #login-column
-  #login-box
-  #login-form
-  #register-link {
-  margin-top: -85px;
+
+.social_icon span{
+font-size: 60px;
+margin-left: 10px;
+color: #FFC312;
+}
+
+.social_icon span:hover{
+color: white;
+cursor: pointer;
+}
+
+.card-header h3{
+color: white;
+}
+
+.social_icon{
+position: absolute;
+right: 20px;
+top: -45px;
+}
+
+.input-group-prepend span{
+width: 50px;
+background-color: #FFC312;
+color: black;
+border:0 !important;
+}
+
+input:focus{
+outline: 0 0 0 0  !important;
+box-shadow: 0 0 0 0 !important;
+
+}
+
+.remember{
+color: white;
+}
+
+.remember input
+{
+width: 20px;
+height: 20px;
+margin-left: 15px;
+margin-right: 5px;
+}
+
+.login_btn{
+color: black;
+background-color: #FFC312;
+width: 100px;
+}
+
+.login_btn:hover{
+color: black;
+background-color: white;
+}
+
+.links{
+color: white;
+}
+
+.links:hover{
+  color: white;
+}
+
+.links a{
+margin-left: 4px;
 }
 </style>

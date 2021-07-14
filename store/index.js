@@ -168,6 +168,7 @@ export const mutations = {
 
 export const actions = {
   openVoicePan({ commit, dispatch }, item) {
+    console.log(item.publishTime);
     commit("setselectedVoice_sender", item.publisher);
     commit("setselectedVoice_content", item.content);
     commit("setselectedVoice_liked", item.likes);
@@ -445,11 +446,5 @@ export const actions = {
         }
       )
       .then((res) => commit("setlikedBy", res.data.likers));
-  },
-  async getCountLikes({ $axios }) {
-    let res = await $axios.get("/ava/like/count");
-    let jsonform = res.json();
-    console.log(jsonForm);
-    return res;
   },
 };

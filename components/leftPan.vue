@@ -6,7 +6,7 @@
           <li>
             <a class="btn d-inline" @click="openSelfPanel()">
               <img
-                src="avatar.jpeg"
+                src="download.jfif"
                 alt="John Doe"
                 class="mr-2 rounded-circle"
                 style="width: 30px"
@@ -20,11 +20,6 @@
           </li>
           <li class="nav-item">
             <a class="nav-link tap-pan" @click="$store.dispatch('getHots')" data-toggle="tab" href="#hots">Hots</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link tap-pan" data-toggle="tab" href="#followed-pan"
-              >Followed</a
-            >
           </li>
           <li class="nav-item">
             <a class="nav-link tap-pan" @click="$store.dispatch('getFollowedVoices')" data-toggle="tab" href="#news">News</a>
@@ -50,7 +45,7 @@
               class="list-group-item mb-1 list-group-item-action"
             >
               <img
-                src="avatar.jpeg"
+                src="download.jfif"
                 alt="John Doe"
                 class="mr-2 rounded-circle"
                 style="width: 30px"
@@ -84,29 +79,6 @@
               <span class="badge badge-primary badge-pill">{{
                 item.likes
               }}</span>
-            </a>
-          </div>
-        </div>
-
-        <!-- followed -->
-
-        <div
-          id="followed-pan"
-          class="overflow-auto container text-break tab-pane fade"
-        >
-          <div v-for="item in followed" class="list-group" :key="item">
-            <a
-              @click="openUserPan()"
-              href="#"
-              class="list-group-item mb-1 list-group-item-action"
-            >
-              <img
-                src="avatar.jpeg"
-                alt="John Doe"
-                class="mr-2 rounded-circle"
-                style="width: 30px"
-              />
-              {{ item }}
             </a>
           </div>
         </div>
@@ -199,7 +171,7 @@ export default {
     shrinkString(s, size) {
       if (s == null)
         return s;
-      return s.substring(0, size) + '...'
+      return s.substring(0, 10) + '...'
     },
     openVoicePan(item) {
       this.$store.dispatch('openVoicePan',item)
@@ -216,7 +188,7 @@ export default {
 
 <style lang="css" scoped>
 .my-container {
-  background-color: rgb(9, 107, 107);
+    background-color: rgb(15 32 49);
   max-height: 96vh;
   overflow: hidden;
 }
