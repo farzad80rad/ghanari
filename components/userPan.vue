@@ -98,12 +98,13 @@
         class="form-control"
         name="chatTextArea"
         id="chatTextArea"
+        v-model="newVoiceContent"
         cols="100"
         rows="1"
         placeholder="new voice"
       ></textarea>
       <div class="input-group-append">
-        <button class="btn btn-primary">sent</button>
+        <button class="btn btn-primary" @click="sendNewVoice()">sent</button>
       </div>
     </div>
     <div class="modal fade" id="logModal">
@@ -135,6 +136,7 @@
 import { mapState } from 'vuex'
 
 export default {
+
   computed: {
     ...mapState([
       'selecteduser',
@@ -155,9 +157,16 @@ export default {
   data() {
     return {
       textToComment: '',
+       newVoiceContent: "",
+
     }
   },
   methods: {
+    sendNewVoice(){
+      this.$store.dispatch('sendava',this.newVoiceContent)
+      this.newVoiceContent = "";
+    }
+    ,
     enterChat() {
       this.$store.commit('openChat', this.selecteduser.name)
     },

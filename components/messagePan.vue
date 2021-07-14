@@ -5,6 +5,7 @@
         <img
           src="avatar.jpeg"
           alt="John Doe"
+          @click="$store.dispatch('getVoiceOfUser',selectedChatName)"
           class="mr-3 rounded-circle"
           style="width: 50px"
         />
@@ -14,11 +15,14 @@
         <div v-for="message in selectedMessage" :key="message.id">
           <div style="width: 100%">
             <div :class="messageClass(message)">
-              <div v-if="message.voiceSender.length !== 0">
-                <small>forwarded from</small> {{ message.voiceSender }}
+              <div v-if="message.postID > 1">
+                <small>forwarded </small> 
+                <div  class="d-flex justify-content-between align-items-center">
+                {{ message.postID }} <small>{{ message.sendTime }}</small>
               </div>
-              <div class="d-flex justify-content-between align-items-center">
-                {{ message.content }} <small>{{ message.date }}</small>
+              </div >
+              <div v-else class="d-flex justify-content-between align-items-center">
+                {{ message.content }} <small>{{ message.sendTime }}</small>
               </div>
             </div>
             &nbsp;
@@ -33,11 +37,12 @@
           name="chatTextArea"
           id="chatTextArea"
           cols="100"
+          v-model="textToSend"
           rows="1"
           placeholder="new message"
         ></textarea>
         <div class="input-group-append">
-          <button class="btn btn-primary">sent</button>
+          <button class="btn btn-primary" @click="$store.dispatch('sendMessage',textToSend)">sent</button>
         </div>
       </div>
     </div>
@@ -71,7 +76,7 @@ export default {
       return {
         selfMessage: message.sender === this.userName,
         otherMessage: message.sender !== this.userName,
-        forwardedMessage: message.voiceSender.length !== 0,
+       // forwardedMessage: message.sender.length !== 0,
       }
     },
     opositSide(sender) {

@@ -125,11 +125,11 @@
             <!-- Modal body -->
             <div class="modal-body">
               <div class="overflow-auto container text-wrap">
-                <div v-for="item in contacts" class="list-group" :key="item">
+                <div v-for="item in contacts"  class="list-group" :key="item">
                   <a
-                    data-dismiss="modal"
-                    @click="forwardMessage()"
                     class="list-group-item list-group-item-action"
+                     @click="$store.dispatch('forwardMessage',item)" 
+                     data-dismiss="modal"
                   >
                     <img
                       src="avatar.jpeg"
@@ -170,6 +170,10 @@ export default {
     }
   },
   methods: {
+    forwardMessage(){
+      console.log("forwardMessage")
+      this.$store.dispatch('forwardMessage',name)
+    },
     showLikedBy() {
       this.$store.dispatch('getlikeList');
       this.showLikedBool = !this.showLikedBool;

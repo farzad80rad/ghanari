@@ -159,6 +159,11 @@ export const mutations = {
     console.log(array);
     state.likedBy = array;
   },
+
+  setselectedMessage(state, array) {
+    console.log(array);
+    state.selectedMessage = array;
+  },
 };
 
 export const actions = {
@@ -272,11 +277,39 @@ export const actions = {
       .then((res) => console.log(res));
   },
 
-  async sendMessage({ $axios }) {
-    let res = await $axios.post("/user/message/send");
-    let jsonform = res.json();
-    console.log(jsonForm);
-    return res;
+  async sendMessage({ state }, text) {
+    ///////////////////////////////////////
+    console.log("sendMessage");
+    console.log(text);
+    await this.$axios
+      .post(
+        "http://localhost:8080/user/message/send",
+        { content: text, receiver: state.selectedChatName },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((res) => console.log(res));
+  },
+
+  async forwardMessage({ state }, name) {
+    ///////////////////////////////////////
+    console.log("sendMessage");
+    console.log(name);
+    console.log(state.selectedVoice.id);
+    await this.$axios
+      .post(
+        "http://localhost:8080/user/message/send",
+        { postID: state.selectedVoice.id, receiver: name },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((res) => console.log(res));
   },
 
   async reciveMessage({ state, commit }, name) {
@@ -284,15 +317,15 @@ export const actions = {
     console.log(name);
     commit("openChat", name);
 
-    let res = await this.$axios.post(
-      "http://localhost:8080/user/message/receive",
-      { username: state.selectedChatName },
-      {
-        headers: { "Content-Type": "application/json" },
-      }
-    );
-    console.log(res);
-    return res;
+    let res = await this.$axios
+      .post(
+        "http://localhost:8080/user/message/receive",
+        { username: state.selectedChatName },
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      )
+      .then((res) => commit("setselectedMessage", res.data.messages));
   },
 
   async messageList({ commit }) {
@@ -309,11 +342,12 @@ export const actions = {
     }
   },
 
-  async forward({ $axios }) {
-    let res = await $axios.post("/ava/postAVA");
-    let jsonform = res.json();
-    console.log(jsonForm);
-    return res;
+  async sendava({ state }, content) {
+    await this.$axios.post(
+      "http://localhost:8080/ava/postAVA",
+      { content: content },
+      { headers: { "Content-Type": "application/json" } }
+    );
   },
 
   async sendComment({ state }, text) {
