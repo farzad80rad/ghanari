@@ -7,7 +7,7 @@
           <a>
             <div class="main-voice shadow p-2 mb-4 bg-white">
               <h4 class="d-flex justify-content-between align-items-center">
-                <a class="btn" @click="openUserPan()">
+                <a class="btn" @click="openUserPan(selectedVoice.sender)">
                   <img
                     src="avatar.jpeg"
                     alt="John Doe"
@@ -25,7 +25,7 @@
                   >
                     forward
                   </button>
-                  <button type="button" class="btn mr-3 btn-primary">
+                  <button type="button" @click="$store.dispatch('likeVoice')" class="btn mr-3 btn-primary">
                     like
                   </button>
                   <em>
@@ -40,7 +40,7 @@
               <div class="ml-5 pl-4">
                 Likes {{ selectedVoice.liked }}
                 <button
-                  @click="showLikedBy"
+                  @click="showLikedBy()"
                   type="button"
                   class="btn ml-3 btn-secondary"
                 >
@@ -50,10 +50,10 @@
                   <a
                     v-for="person in likedBy"
                     class="text-secondary ml-3 user-text-liked"
-                    @click="openUserPan()"
+                    @click="$store.dispatch('getVoiceOfUser',person.username)"
                     :key="person"
                   >
-                    {{ person }}
+                    {{ person.username }}
                   </a>
                 </span>
               </div>
@@ -68,7 +68,7 @@
             >
               <div
                 class="media-body comment-card shadow p-3 bg-white"
-                @click="openVoicePan(currentComment.id)"
+                @click="$store.dispatch('openVoicePan',currentComment)"
               >
                 <h4 class="d-flex justify-content-between align-items-center">
                   <span>
@@ -78,11 +78,11 @@
                       class="mr-2 rounded-circle"
                       style="width: 40px"
                     />
-                    {{ currentComment.sender }}</span
+                    {{ currentComment.publisher }}</span
                   >
                   <small class="mr-4"
                     ><i
-                      ><small>Posted on {{ currentComment.date }}</small>
+                      ><small>Posted on {{ currentComment.publishTime }}</small>
                     </i></small
                   >
                 </h4>
@@ -100,12 +100,13 @@
         class="form-control"
         name="chatTextArea"
         id="chatTextArea"
+        v-model="textToComment"
         cols="100"
         rows="1"
         placeholder="new comment"
       ></textarea>
       <div class="input-group-append">
-        <button class="btn btn-primary">sent</button>
+        <button class="btn btn-primary" @click=" $store.dispatch('sendComment',textToComment)">sent</button>
       </div>
     </div>
     <div class="container">
@@ -170,11 +171,16 @@ export default {
   },
   methods: {
     showLikedBy() {
-      this.showLikedBool = !this.showLikedBool
+      this.$store.dispatch('getlikeList');
+      this.showLikedBool = !this.showLikedBool;
     },
-    openUserPan() {
-      this.$store.commit('openUserPan')
+
+    openUserPan(name) {
+      console.log("openUserPan");
+      this.$store.dispatch('getVoiceOfUser',name);
+      console.log(" out openUserPan");
     },
+
     openVoicePan(id) {
       this.$store.commit('openVoicePan')
     },

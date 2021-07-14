@@ -2,162 +2,55 @@ export const state = () => ({
   state: "login",
   validAuth: false,
   userName: null,
-  followed: ["p1", "p2", "p3", "p4", "p5"],
-  blocked: ["p4", "p7", "p3"],
-  likedBy: ["p1", "p2"],
-  hotVoice: [
-    { sender: "p1", liked: 10, id: 0, content: "ey khodaaaa" },
-    { sender: "p1", liked: 80, id: 1, content: "ey khodaaaa" },
-    {
-      sender: "p2",
-      liked: 10,
-      id: 2,
-      content:
-        "ey khodaaaa ajab zendigei shodeeee eeee eeeeee fff ffff fff ffff ffff ffff ffff ffff ffff ffff ffff eee",
-    },
-    { sender: "p1", liked: 130, id: 3, content: "ey khodaaaa heeeeeeeeey" },
-    { sender: "p4", liked: 10, id: 4, content: "ey khodaaaa" },
-    { sender: "p1", liked: 5, id: 5, content: "ey khodaaaa kslkdflask" },
-    { sender: "p1", liked: 10, id: 6, content: "ey khodaaaa" },
-    { sender: "p5", liked: 180, id: 7, content: "ey khodaaaa god bless me" },
-  ],
-  contacts: ["p1", "p2", "p3", "p4", "p5", "p6", "p9"],
-  newVoices: [
-    { sender: "p1", id: 1, content: "ey khodaaaa" },
-    { sender: "p2", id: 2, content: "ey khodaaaa" },
-    { sender: "p1", id: 3, content: "ey khodaaaa" },
-  ],
+  signupInfo: {
+    username: "",
+    password: "",
+    date: "",
+    firstName: "",
+    secondName: "",
+    bio: "",
+  },
+  followed: [],
+  blocked: [],
+  likedBy: [],
+  hotVoice: [],
+  contacts: [],
+  newVoices: [],
+  voicehashtags: [],
+
   selectedVoice: {
-    sender: "p2",
-    content:
-      "zooo must be zoo. and zoo cant be zooo . it means zoo cant be zooo",
-    liked: 20,
-    date: "2020/05/2 20:34:20",
-    comments: [
-      {
-        sender: "p3",
-        content: "bulls hitskd flksdfj llskjalk fjlkasdj fksjdfkal",
-        date: "2020/05/2 20:34:20",
-        id: 1,
-      },
-      { sender: "p6", content: "bullshit", date: "2020/04/2 20:34:20", id: 2 },
-      { sender: "p4", content: "bullshit", date: "2020/05/2 26:34:20", id: 3 },
-      { sender: "p3", content: "bullshit", date: "2020/06/2 20:34:20", id: 4 },
-      { sender: "p9", content: "bullshit", date: "2020/09/2 23:34:20", id: 5 },
-    ],
+    id: 0,
+    sender: "farzad",
+    content: "",
+    liked: 0,
+    date: "",
+    comments: [],
   },
+
   selecteduser: {
-    name: "p2",
-    biography: "im using ghanari",
-    birthDate: "2020/05/2 20:34:20",
-    joinDate: "2020/05/2 20:34:20",
-    voices: [
-      { sender: "p2", content: "hi all", date: "2020/05/2 20:34:20", id: 1 },
-      { sender: "p2", content: "this", date: "2020/04/2 20:34:20", id: 2 },
-      { sender: "p2", content: "must", date: "2020/05/2 26:34:20", id: 3 },
-      { sender: "p2", content: "be", date: "2020/06/2 20:34:20", id: 4 },
-      { sender: "p2", content: "somthing", date: "2020/09/2 23:34:20", id: 5 },
-    ],
+    name: "farzad",
+    biography: "",
+    birthDate: "",
+    joinDate: "",
+    voices: [],
   },
+
+  selecteduserName: "",
+  selecteduser_voices: [],
   loginLogs: [
     "2020/10/04 20:10:03",
-    "2020/10/04 20:10:03",
-    "2020/10/04 20:10:03",
-    "2020/10/04 20:10:03",
-    "2020/10/04 20:10:03",
+    "2020/10/04 20:10:04",
+    "2020/10/04 20:10:05",
+    "2020/10/04 20:10:06",
+    "2020/10/04 20:10:07",
   ],
   selectedChatName: "",
-  selectedMessage: [
-    {
-      id: 0,
-      sender: "p1",
-      voiceSender: "",
-      content: "hi",
-      date: "2020/10/04 20:10:03",
-    },
-    {
-      sender: "p2",
-      id: 1,
-      voiceSender: "",
-      content: "hi",
-      date: "2020/10/04 20:10:03",
-    },
-    {
-      sender: "p2",
-      id: 11,
-      voiceSender: "",
-      content: "hi",
-      date: "2020/10/04 20:10:03",
-    },
-    {
-      sender: "p2",
-      id: 13,
-      voiceSender: "",
-      content: "hi",
-      date: "2020/10/04 20:10:03",
-    },
-    {
-      sender: "p2",
-      id: 14,
-      voiceSender: "",
-      content: "hi",
-      date: "2020/10/04 20:10:03",
-    },
-    {
-      sender: "p1",
-      id: 2,
-      voiceSender: "",
-      content: "how are you?",
-      date: "2020/10/04 20:10:03",
-    },
-    {
-      sender: "p1",
-      id: 3,
-      voiceSender: "",
-      content: "hi",
-      date: "2020/10/04 20:10:03",
-    },
-    {
-      sender: "p2",
-      id: 4,
-      voiceSender: "",
-      content: "seid how are you?",
-      date: "2020/10/04 20:10:03",
-    },
-    {
-      sender: "p1",
-      id: 5,
-      voiceSender: "",
-      content: "hi",
-      date: "2020/10/04 20:10:03",
-    },
-    {
-      sender: "p2",
-      id: 6,
-      voiceSender: "",
-      content: "hiiiiii",
-      date: "2020/10/04 20:10:03",
-    },
-    {
-      sender: "p1",
-      id: 7,
-      voiceSender: "",
-      content: "hi",
-      date: "2020/10/04 20:10:03",
-    },
-    {
-      sender: "p1",
-      id: 8,
-      voiceSender: "p2",
-      content: "hiiiiii",
-      date: "2020/10/04 20:10:03",
-    },
-  ],
+  selectedMessage: [],
 });
 
 export const mutations = {
-  loginByName: (state, username) => {
-    state.userName = username;
+  loginByName: (state) => {
+    state.userName = state.signupInfo.username;
     state.validAuth = true;
     state.state = "enterd";
   },
@@ -177,145 +70,347 @@ export const mutations = {
   openUserPan(state) {
     state.state = "user";
   },
+
+  // set userINfo
+  setfirstName(state, fn) {
+    state.signupInfo.firstName = fn;
+  },
+  setusername(state, un) {
+    state.signupInfo.username = un;
+  },
+  setBirthDate(state, date) {
+    state.signupInfo.date = date;
+  },
+  setpassword(state, pass) {
+    state.signupInfo.password = pass;
+  },
+  setbio(state, bio) {
+    state.signupInfo.bio = bio;
+  },
+  setsecondname(state, sn) {
+    console.log(sn);
+    state.signupInfo.secondName = sn;
+  },
+
+  //set messages info
+  setContacts(state, array) {
+    state.contacts = array;
+  },
+
+  //set hots
+  sethotVoice(state, array) {
+    console.log(array);
+    state.hotVoice = array;
+  },
+
+  // set selected message
+  setselectedVoice_sender(state, name) {
+    state.selectedVoice.sender = name;
+  },
+  setselectedVoice_content(state, content) {
+    state.selectedVoice.content = content;
+  },
+  setselectedVoice_liked(state, liked) {
+    state.selectedVoice.liked = liked;
+  },
+  setselectedVoice_date(state, date) {
+    state.selectedVoice.date = date;
+  },
+  setselectedVoice_comments(state, comments) {
+    console.log(comments);
+    state.selectedVoice.comments = comments;
+  },
+  setselectedVoice_id(state, id) {
+    console.log(id);
+    state.selectedVoice.id = id;
+  },
+
+  //set selected user
+  setSelectedUser_Name(state, name) {
+    console.log("setSelectedUser_Name");
+    console.log(name);
+    state.selecteduser.name = name;
+    console.log("out setSelectedUser_Name");
+  },
+
+  setSelectedUser_voices(state, voices) {
+    console.log("setSelectedUser_voices");
+    console.log(voices);
+    state.selecteduser.voices = voices;
+    console.log("out setSelectedUser_voices");
+  },
+
+  setNews(state, news) {
+    console.log(news);
+    state.newVoices = news;
+  },
+
+  setVoiceHashtag(state, array) {
+    console.log(array);
+    state.voicehashtags = array;
+  },
+
+  setfollowed(state, array) {
+    state.followed = array;
+  },
+
+  setlikedBy(state, array) {
+    console.log("likedBy");
+    console.log(array);
+    state.likedBy = array;
+  },
 };
 
 export const actions = {
-  async signup(username, firstname, lastname, password, bio, birthDay) {
-    console.log("starrrrrrrrt");
+  openVoicePan({ commit, dispatch }, item) {
+    commit("setselectedVoice_sender", item.publisher);
+    commit("setselectedVoice_content", item.content);
+    commit("setselectedVoice_liked", item.likes);
+    commit("setselectedVoice_date", item.publishTime);
+    commit("setselectedVoice_id", item.id);
+    dispatch("getComments", item.id);
+    commit("openVoicePan");
+  },
 
-    let res = await this.$http.$post("http://localhost:8080/user/signup", {
-      username: username,
-      password: password,
-      firstName: firstname,
-      lastName: lastname,
-      bio: bio,
-      birthday: birthDay,
+  async signup({ state }) {
+    console.log("username : " + state.signupInfo.username);
+    console.log("fist name : " + state.signupInfo.firstName);
+    console.log("lastname : " + state.signupInfo.secondName);
+    console.log("password : " + state.signupInfo.password);
+    console.log("bio : " + state.signupInfo.bio);
+    console.log("birthday : " + state.signupInfo.date);
+
+    let res = await this.$axios.post("http://localhost:8080/user/signup", {
+      username: state.signupInfo.username,
+      password: state.signupInfo.password,
+      firstName: state.signupInfo.firstName,
+      lastName: state.signupInfo.secondName,
+      bio: state.signupInfo.bio,
+      birthday: state.signupInfo.date,
     });
-    console.log(res);
+    console.log(res.status);
     return res;
   },
 
-  async login(username, password) {
-    console.log("start login");
+  async login({ dispatch, commit, state }) {
+    console.log(state.signupInfo.username);
+    console.log(state.signupInfo.password);
     let res = await this.$axios.post(
       "http://localhost:8080/user/login",
       {
-        username: username,
-        password: password,
+        username: state.signupInfo.username,
+        password: state.signupInfo.password,
       },
       {
         headers: {
-          method: "post",
-          "Content-Type": "application/xml",
-          "X-PINGOTHER": "pingpong",
+          "Content-Type": "application/json",
         },
       }
     );
     console.log(res);
+    if (res.status / 100 === 2) {
+      await dispatch("messageList");
+      commit("loginByName");
+    }
     return res;
   },
 
-  async follow({ $axios }) {
-    let res = await $axios.post("/user/follow");
-    let jsonform = res.json();
-    console.log(jsonForm);
-    return res;
+  async follow({ state }, name) {
+    console.log("follow");
+    console.log(name);
+    await this.$axios
+      .post(
+        "http://localhost:8080/user/follow",
+        { username: name },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((res) => console.log(res));
   },
-  async unfollow({ $axios }) {
-    let res = await $axios.post("/unfollow");
-    let jsonform = res.json();
-    console.log(jsonForm);
-    return res;
+  async unfollow({ state }, name) {
+    await this.$axios
+      .post(
+        "http://localhost:8080/user/unfollow",
+        { username: name },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((res) => console.log(res));
   },
-  async block({ $axios }) {
-    let res = await $axios.post("/user/block");
-    let jsonform = res.json();
-    console.log(jsonForm);
-    return res;
+
+  async block({ state }, name) {
+    await this.$axios
+      .post(
+        "http://localhost:8080/user/block",
+        { username: name },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((res) => console.log(res));
   },
-  async unblock({ $axios }) {
-    let res = await $axios.post("/user/unblock");
-    let jsonform = res.json();
-    console.log(jsonForm);
-    return res;
+
+  async unblock({ state }, name) {
+    await this.$axios
+      .post(
+        "http://localhost:8080/user/unblock",
+        { username: name },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .then((res) => console.log(res));
   },
+
   async sendMessage({ $axios }) {
     let res = await $axios.post("/user/message/send");
     let jsonform = res.json();
     console.log(jsonForm);
     return res;
   },
-  async reciveMessage({ $axios }) {
-    let res = await $axios.get("/user/message/receive");
-    let jsonform = res.json();
-    console.log(jsonForm);
+
+  async reciveMessage({ state, commit }, name) {
+    console.log("recie");
+    console.log(name);
+    commit("openChat", name);
+
+    let res = await this.$axios.post(
+      "http://localhost:8080/user/message/receive",
+      { username: state.selectedChatName },
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+    console.log(res);
     return res;
   },
-  async messageList({ $axios }) {
-    let res = await $axios.post("/user/message/list");
-    let jsonform = res.json();
-    console.log(jsonForm);
-    return res;
+
+  async messageList({ commit }) {
+    try {
+      await fetch("http://localhost:8080/user/message/list", {
+        method: "GET",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          commit("setContacts", data.senders);
+        });
+    } catch (err) {
+      console.log(err);
+    }
   },
+
   async forward({ $axios }) {
     let res = await $axios.post("/ava/postAVA");
     let jsonform = res.json();
     console.log(jsonForm);
     return res;
   },
-  async sendComment({ $axios }) {
-    let res = await $axios.post("/ava/postComment");
-    let jsonform = res.json();
-    console.log(jsonForm);
-    return res;
+
+  async sendComment({ state }, text) {
+    console.log("sendComment");
+    console.log(text);
+    console.log(parseInt(state.selectedVoice.id));
+    await this.$axios
+      .post(
+        "http://localhost:8080/ava/postComment",
+        { content: text, replyTo: parseInt(state.selectedVoice.id) },
+        { headers: { "Content-Type": "application/json" } }
+      )
+      .then((res) => console.log(res));
   },
-  async getTimeLine({ $axios }) {
-    let res = await $axios.get("/ava/timeline");
-    let jsonform = res.json();
-    console.log(jsonForm);
-    return res;
+
+  async getFollowedVoices({ commit }) {
+    await this.$axios
+      .get("http://localhost:8080/ava/timeline")
+      .then((res) => commit("setNews", res.data.timeLine));
   },
-  async getComments({ $axios }) {
-    let res = await $axios.get("/ava/comments");
-    let jsonform = res.json();
-    console.log(jsonForm);
-    return res;
+
+  async getComments({ commit }, ava_id) {
+    await this.$axios
+      .post(
+        "http://localhost:8080/ava/comments",
+        { id: ava_id },
+        { headers: { "Content-Type": "application/json" } }
+      )
+      .then((res) => commit("setselectedVoice_comments", res.data.comments));
   },
-  async getVoiceOfUser({ $axios }) {
-    let res = await $axios.get("/ava/user");
-    let jsonform = res.json();
-    console.log(jsonForm);
-    return res;
+
+  async getVoiceOfUser({ commit }, name) {
+    console.log("getVoiceOfUser");
+    commit("setSelectedUser_Name", name);
+    await this.$axios
+      .post(
+        "http://localhost:8080/ava/user",
+        { username: name },
+        { headers: { "Content-Type": "application/json" } }
+      )
+      .then((res) => commit("setSelectedUser_voices", res.data.avas));
+    commit("openUserPan");
+
+    console.log(" out getVoiceOfUser");
   },
-  async getselfVoice({ $axios }) {
-    let res = await $axios.get("/ava/me");
-    let jsonform = res.json();
-    console.log(jsonForm);
-    return res;
+
+  async getselfVoice({ commit, state }) {
+    console.log("getselfVoice");
+    commit("setSelectedUser_Name", state.signupInfo.username);
+    console.log("getselfVoice");
+
+    await this.$axios
+      .get("http://localhost:8080/ava/me", {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((res) => commit("setSelectedUser_voices", res.data.avas));
+
+    commit("openUserPan");
   },
-  async getHashtagAva({ $axios }) {
-    let res = await $axios.get("/ava/tag");
-    let jsonform = res.json();
-    console.log(jsonForm);
-    return res;
+
+  async getHashtagAva({ commit }, title) {
+    await this.$axios
+      .post(
+        "http://localhost:8080/ava/tag",
+        { tag: title },
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      )
+      .then((res) => commit("setVoiceHashtag", res.data.avas));
   },
-  async getHots({ $axios }) {
-    let res = await $axios.get("/ava/pupular");
-    let jsonform = res.json();
-    console.log(jsonForm);
-    return res;
+
+  async getHots({ commit }) {
+    await this.$axios
+      .get("http://localhost:8080/ava/popular")
+      .then((res) => commit("sethotVoice", res.data.avas));
   },
-  async likeVoice({ $axios }) {
-    let res = await $axios.post("/ava/like/doLike");
-    let jsonform = res.json();
-    console.log(jsonForm);
-    return res;
+
+  async likeVoice({ state }) {
+    await this.$axios.post(
+      "http://localhost:8080/ava/like/doLike",
+      { id: state.selectedVoice.id },
+      {
+        headers: { "Content-Type": "application/json" },
+      }
+    );
   },
-  async getlikeList({ $axios }) {
-    let res = await $axios.get("/ava/like/list");
-    let jsonform = res.json();
-    console.log(jsonForm);
-    return res;
+  async getlikeList({ state, commit }) {
+    await this.$axios
+      .post(
+        "http://localhost:8080/ava/like/list",
+        { id: state.selectedVoice.id },
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      )
+      .then((res) => commit("setlikedBy", res.data.likers));
   },
   async getCountLikes({ $axios }) {
     let res = await $axios.get("/ava/like/count");

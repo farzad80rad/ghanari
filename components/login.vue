@@ -11,7 +11,7 @@
                 <label for="username" class="text-info">Username:</label><br />
                 <input
                   type="text"
-                  v-model="username"
+                  v-model="data_username"
                   name="username"
                   id="username"
                   class="form-control"
@@ -23,7 +23,7 @@
                   type="text"
                   name="password"
                   id="password"
-                  v-model="password"
+                  v-model="data_password"
                   class="form-control"
                 />
               </div>
@@ -51,26 +51,22 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex';
-  
-  export default {
+    export default {
 
   data() {
     return {
-      username: '',
-      password: '',
+      data_username: '',
+      data_password: '',
     }
   },
 
   
 
   methods: {
-      ...mapActions([
-        'login', //also supports payload `this.nameOfAction(amount)` 
-      ]),
     tryToLogin() {
-      console.log("haaaaaaaaaaaaaaaaaaaa")
-      this.login(this.username,this.password)
+      this.$store.commit('setpassword',this.data_password);
+      this.$store.commit('setusername',this.data_username);
+      this.$store.dispatch('login');
     },
     goToSubmit() {
       this.$store.commit('goToSubmit')

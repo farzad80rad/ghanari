@@ -4,7 +4,7 @@
       <small>
         <ul class="nav nav-tabs" role="tablist">
           <li>
-            <a class="btn d-inline" @click="openUserPan()">
+            <a class="btn d-inline" @click="openSelfPanel()">
               <img
                 src="avatar.jpeg"
                 alt="John Doe"
@@ -14,12 +14,12 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link tap-pan active" data-toggle="tab" href="#chats"
+            <a class="nav-link tap-pan active" @click=" $store.dispatch('messageList')" data-toggle="tab" href="#chats"
               >Chats</a
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link tap-pan" data-toggle="tab" href="#hots">Hots</a>
+            <a class="nav-link tap-pan" @click="$store.dispatch('getHots')" data-toggle="tab" href="#hots">Hots</a>
           </li>
           <li class="nav-item">
             <a class="nav-link tap-pan" data-toggle="tab" href="#followed-pan"
@@ -27,7 +27,7 @@
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link tap-pan" data-toggle="tab" href="#news">News</a>
+            <a class="nav-link tap-pan" @click="$store.dispatch('getFollowedVoices')" data-toggle="tab" href="#news">News</a>
           </li>
           <li class="nav-item">
             <a class="nav-link tap-pan" data-toggle="tab" href="#hashTag"
@@ -65,7 +65,7 @@
         <div id="hots" class="overflow-auto container text-wrap tab-pane fade">
           <div v-for="item in hotVoice" class="list-group" :key="item.id">
             <a
-              @click="openVoicePan()"
+              @click="openVoicePan(item)"
               class="
                 list-group-item
                 mb-1
@@ -76,13 +76,13 @@
               "
             >
               <span
-                >{{ item.sender }}
+                >{{ item.publisher }}
                 <small class="pl-4">{{
                   shrinkString(item.content, 20)
                 }}</small></span
               >
               <span class="badge badge-primary badge-pill">{{
-                item.liked
+                item.likes
               }}</span>
             </a>
           </div>
@@ -119,15 +119,15 @@
         >
           <div v-for="item in newVoices" class="list-group" :key="item.id">
             <a
-              @click="openVoicePan()"
+              @click="openVoicePan(item)"
               href="#"
               class="list-group-item mb-1 list-group-item-action"
-              >{{ item.sender }}
+              >{{ item.publisher }}
               <small class="pl-4">{{
                 shrinkString(item.content, 20)
               }}</small></a
             >
-          </div>
+          </div >
         </div>
 
         <!-- hashtag -->
@@ -144,20 +144,21 @@
               class="form-control"
               name="hashtagSearch"
               id="hashtagSearch"
+              v-model="hashtagToSearch"
               cols="50"
               rows="1"
               placeholder="hashtag"
             ></textarea>
             <div class="input-group-append">
-              <button class="btn btn-success">sreach</button>
+              <button class="btn btn-success" @click="$store.dispatch('getHashtagAva',hashtagFormat)">sreach</button>
             </div>
           </div>
-          <div v-for="item in newVoices" class="list-group" :key="item.id">
+          <div v-for="item in voicehashtags" class="list-group" :key="item.id">
             <a
-              @click="openVoicePan()"
+              @click="$store.dispatch('openVoicePan',item)"
               href="#"
               class="list-group-item mb-1 list-group-item-action"
-              >{{ item.sender }}
+              >{{ item.publisher }}
               <small class="pl-4">{{
                 shrinkString(item.content, 20)
               }}</small></a
@@ -173,6 +174,10 @@
 import { mapState } from 'vuex'
 
 export default {
+  data () { 
+    return{    hashtagToSearch: ""
+}
+  },
   computed: {
     ...mapState([
       'state',
@@ -181,17 +186,26 @@ export default {
       'userName',
       'contacts',
       'newVoices',
+      'voicehashtags',
     ]),
+    hashtagFormat(){
+      return "#" + this.hashtagToSearch;
+    }
   },
   methods: {
+    openSelfPanel(){
+    this.$store.dispatch("getselfVoice");
+    },
     shrinkString(s, size) {
+      if (s == null)
+        return s;
       return s.substring(0, size) + '...'
     },
-    openVoicePan() {
-      this.$store.commit('openVoicePan')
+    openVoicePan(item) {
+      this.$store.dispatch('openVoicePan',item)
     },
     openChat(name) {
-      this.$store.commit('openChat', name)
+      this.$store.dispatch('reciveMessage',name);
     },
     openUserPan() {
       this.$store.commit('openUserPan')

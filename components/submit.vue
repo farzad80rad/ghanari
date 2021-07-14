@@ -81,7 +81,7 @@
                 <input
                   type="button"
                   name="submit"
-                  @click="signup(username,fistName,secondName,password,biography,BirthDate)"
+                  @click="tryToSignUp()"
                   class="btn btn-info mb-4 btn-md col-3"
                   value="submit"
                 />
@@ -119,6 +119,15 @@ export default {
     goTologin() {
       this.$store.commit('goTologin')
     },
+    tryToSignUp(){
+     this.$store.commit('setfirstName',this.firstName) //setSignupInfo(state, fn, sn, un, date, pass, bio)
+     this.$store.commit('setsecondname',this.secondName) //setSignupInfo(state, fn, sn, un, date, pass, bio)
+     this.$store.commit('setusername',this.username) //setSignupInfo(state, fn, sn, un, date, pass, bio)
+     this.$store.commit('setBirthDate',this.BirthDate) //setSignupInfo(state, fn, sn, un, date, pass, bio)
+     this.$store.commit('setpassword',this.password) //setSignupInfo(state, fn, sn, un, date, pass, bio)
+     this.$store.commit('setbio',this.biography) //setSignupInfo(state, fn, sn, un, date, pass, bio)
+     this.$store.dispatch('signup');
+    }
   },
 }
 </script>

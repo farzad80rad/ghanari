@@ -26,10 +26,16 @@
               >
               <small v-if="selecteduser.name !== userName"
                 ><button class="btn btn-success" @click="followUser()">
-                  {{ followCheck }}
+                 follow
+                </button>
+                <button class="btn btn-success" @click="unfollowUser()">
+                   unfollow 
                 </button>
                 <button class="btn btn-danger" @click="blockUser()">
-                  {{ blockCheck }}
+                  block
+                </button>
+                 <button class="btn btn-danger" @click="unblockUser()">
+                  unblock
                 </button>
                 <button class="btn btn-primary" @click="enterChat()">
                   chat
@@ -57,7 +63,7 @@
             >
               <div
                 class="media-body voice-card shadow p-3 bg-white"
-                @click="openVoicePan(currentComment.id)"
+                @click="$store.dispatch('openVoicePan',currentComment)"
               >
                 <h4 class="d-flex justify-content-between align-items-center">
                   <span>
@@ -67,11 +73,11 @@
                       class="mr-2 rounded-circle"
                       style="width: 40px"
                     />
-                    {{ currentComment.sender }}</span
+                    {{ currentComment.publisher }}</span
                   >
                   <small class="mr-4"
                     ><i
-                      ><small>Posted on {{ currentComment.date }}</small>
+                      ><small>Posted on {{ currentComment.publishTime }}</small>
                     </i></small
                   >
                 </h4>
@@ -155,8 +161,18 @@ export default {
     enterChat() {
       this.$store.commit('openChat', this.selecteduser.name)
     },
-    followUser() {},
-    blockUser() {},
+    followUser() {
+      this.$store.dispatch("follow",this.selecteduser.name)
+    },
+    unfollowUser(){
+      this.$store.dispatch("unfollow",this.selecteduser.name)
+    },
+    blockUser() {  
+       this.$store.dispatch("block",this.selecteduser.name)
+    },
+    unblockUser() {  
+       this.$store.dispatch("unblock",this.selecteduser.name)
+    },
     openVoicePan(id) {
       this.$store.commit('openVoicePan')
     },
