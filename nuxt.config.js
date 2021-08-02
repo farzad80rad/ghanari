@@ -60,7 +60,7 @@ export default {
 
   axios: {
     // extra config e.g
-    // BaseURL: "http://localhost:8080",
+    // BaseURL: "http://localhost:8080/",
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

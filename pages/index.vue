@@ -16,13 +16,13 @@
 </template>
 
 <script>
-import leftPan from '@/components/leftPan.vue'
-import { mapState } from 'vuex'
-import login from '@/components/login.vue'
-import submit from '@/components/submit.vue'
-import VoicePan from '../components/voicePan.vue'
-import MessagePan from '../components/messagePan.vue'
-import UserPan from '../components/userPan.vue'
+import leftPan from "@/components/leftPan.vue";
+import { mapState } from "vuex";
+import login from "@/components/login.vue";
+import submit from "@/components/submit.vue";
+import VoicePan from "../components/voicePan.vue";
+import MessagePan from "../components/messagePan.vue";
+import UserPan from "../components/userPan.vue";
 
 export default {
   components: {
@@ -34,9 +34,9 @@ export default {
     UserPan,
   },
   computed: {
-    ...mapState(['state']),
+    ...mapState(["state"]),
   },
-}
+};
 </script>
 
 <style scoped>
@@ -44,11 +44,13 @@ html {
   box-sizing: border-box;
 }
 
-.body{
- height: 100vh;
-  background-image: url('../static/loginBack.jpg');
+.body {
+  height: 98vh;
+  max-width: 99vw;
+  background-image: url("../static/loginBack.jpg");
   background-size: cover;
-  background-repeat: no-repeat;}
+  background-repeat: no-repeat;
+}
 
 html,
 body,

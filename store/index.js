@@ -71,6 +71,14 @@ export const mutations = {
     state.state = "user";
   },
 
+  setFollowed(state, array) {
+    state.followed = array;
+  },
+
+  setBlocked(state, array) {
+    state.blocked = array;
+  },
+
   // set userINfo
   setfirstName(state, fn) {
     state.signupInfo.firstName = fn;
@@ -169,51 +177,63 @@ export const mutations = {
 export const actions = {
   openVoicePan({ commit, dispatch }, item) {
     console.log(item.publishTime);
-    commit("setselectedVoice_sender", item.publisher);
+    commit("setselectedVoice_sender", item.sender);
     commit("setselectedVoice_content", item.content);
     commit("setselectedVoice_liked", item.likes);
-    commit("setselectedVoice_date", item.publishTime);
+    commit("setselectedVoice_date", item.date);
     commit("setselectedVoice_id", item.id);
     dispatch("getComments", item.id);
     commit("openVoicePan");
   },
 
-  async signup({ state }) {
-    console.log("username : " + state.signupInfo.username);
-    console.log("fist name : " + state.signupInfo.firstName);
-    console.log("lastname : " + state.signupInfo.secondName);
-    console.log("password : " + state.signupInfo.password);
-    console.log("bio : " + state.signupInfo.bio);
-    console.log("birthday : " + state.signupInfo.date);
+  async axiosPost({ state }, proces) {
+    console.log("enter");
+    console.log(proces);
+    let res = await this.$axios.post(proces.url, proces.body, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    console.log("res");
+    (proces.resFunc || console.log)(res);
+    return res;
+  },
 
-    let res = await this.$axios.post("http://localhost:8080/user/signup", {
+  async axiosGet({ state }, proces) {
+    console.log("enter");
+    console.log(proces);
+    let res = await this.$axios.get(proces.url, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    (proces.resFunc || console.log)(res);
+    console.log(res);
+    return res;
+  },
+
+  async signup({ state, dispatch }) {
+    let proces = { body: {}, url: "" };
+    proces.body = {
       username: state.signupInfo.username,
       password: state.signupInfo.password,
       firstName: state.signupInfo.firstName,
       lastName: state.signupInfo.secondName,
       bio: state.signupInfo.bio,
       birthday: state.signupInfo.date,
-    });
-    console.log(res.status);
-    return res;
+    };
+    proces.url = "http://localhost:8080/signup";
+    dispatch("axiosPost", proces);
   },
 
   async login({ dispatch, commit, state }) {
-    console.log(state.signupInfo.username);
-    console.log(state.signupInfo.password);
-    let res = await this.$axios.post(
-      "http://localhost:8080/user/login",
-      {
-        username: state.signupInfo.username,
-        password: state.signupInfo.password,
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    console.log(res);
+    let proces = { body: {}, url: "" };
+    proces.body = {
+      username: state.signupInfo.username,
+      password: state.signupInfo.password,
+    };
+    proces.url = "http://localhost:8080/login";
+    let res = await dispatch("axiosPost", proces);
     if (res.status / 100 === 2) {
       await dispatch("messageList");
       commit("loginByName");
@@ -221,230 +241,160 @@ export const actions = {
     return res;
   },
 
-  async follow({ state }, name) {
-    console.log("follow");
-    console.log(name);
-    await this.$axios
-      .post(
-        "http://localhost:8080/user/follow",
-        { username: name },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((res) => console.log(res));
-  },
-  async unfollow({ state }, name) {
-    await this.$axios
-      .post(
-        "http://localhost:8080/user/unfollow",
-        { username: name },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((res) => console.log(res));
+  async follow({ dispatch }, name) {
+    let proces = { body: {}, url: "" };
+    proces.body = { username: name };
+    proces.url = "http://localhost:8080/follow";
+    dispatch("axiosPost", proces);
   },
 
-  async block({ state }, name) {
-    await this.$axios
-      .post(
-        "http://localhost:8080/user/block",
-        { username: name },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((res) => console.log(res));
+  async unfollow({ dispatch }, name) {
+    let proces = { body: {}, url: "" };
+    proces.body = { username: name };
+    proces.url = "http://localhost:8080/unfollow";
+    dispatch("axiosPost", proces);
   },
 
-  async unblock({ state }, name) {
-    await this.$axios
-      .post(
-        "http://localhost:8080/user/unblock",
-        { username: name },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((res) => console.log(res));
+  async block({ dispatch }, name) {
+    let proces = { body: {}, url: "" };
+    proces.body = { username: name };
+    proces.url = "http://localhost:8080/block";
+    dispatch("axiosPost", proces);
   },
 
-  async sendMessage({ state }, text) {
-    ///////////////////////////////////////
-    console.log("sendMessage");
-    console.log(text);
-    await this.$axios
-      .post(
-        "http://localhost:8080/user/message/send",
-        { content: text, receiver: state.selectedChatName },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((res) => console.log(res));
+  async unblock({ dispatch }, name) {
+    let proces = { body: {}, url: "" };
+    proces.body = { username: name };
+    proces.url = "http://localhost:8080/unblock";
+    dispatch("axiosPost", proces);
   },
 
-  async forwardMessage({ state }, name) {
-    ///////////////////////////////////////
-    console.log("sendMessage");
-    console.log(name);
-    console.log(state.selectedVoice.id);
-    await this.$axios
-      .post(
-        "http://localhost:8080/user/message/send",
-        { postID: state.selectedVoice.id, receiver: name },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
-      .then((res) => console.log(res));
+  async sendMessage({ dispatch, state }, text) {
+    let proces = { body: {}, url: "" };
+    proces.body = { content: text, receiver: state.selectedChatName };
+    proces.url = "http://localhost:8080/sendMessage";
+    dispatch("axiosPost", proces);
   },
 
-  async reciveMessage({ state, commit }, name) {
-    console.log("recie");
-    console.log(name);
+  async forwardMessage({ dispatch, state }, name) {
+    let proces = { body: {}, url: "" };
+    proces.body = { postID: state.selectedVoice.id, receiver: name };
+    proces.url = "http://localhost:8080/sendMessage";
+    dispatch("axiosPost", proces);
+  },
+
+  async reciveMessage({ dispatch, state, commit }, name) {
     commit("openChat", name);
-
-    let res = await this.$axios
-      .post(
-        "http://localhost:8080/user/message/receive",
-        { username: state.selectedChatName },
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      )
-      .then((res) => commit("setselectedMessage", res.data.messages));
+    let proces = { body: {}, url: "" };
+    proces.url = "http://localhost:8080/getMessages";
+    proces.body = { username: name };
+    let res = await dispatch("axiosPost", proces);
+    commit("setselectedMessage", res.data.messages);
+    commit();
   },
 
-  async messageList({ commit }) {
-    try {
-      await fetch("http://localhost:8080/user/message/list", {
-        method: "GET",
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          commit("setContacts", data.senders);
-        });
-    } catch (err) {
-      console.log(err);
-    }
+  async messageList({ dispatch, commit }) {
+    let proces = { body: {}, url: "" };
+    proces.url = "http://localhost:8080/chatList";
+    let res = await dispatch("axiosGet", proces);
+    commit("setContacts", res.data.senders);
   },
 
-  async sendava({ state }, content) {
-    await this.$axios.post(
-      "http://localhost:8080/ava/postAVA",
-      { content: content },
-      { headers: { "Content-Type": "application/json" } }
-    );
+  async sendava({ dispatch }, content) {
+    let proces = { body: {}, url: "" };
+    proces.body = { content: content };
+    proces.url = "http://localhost:8080/postAVA";
+    dispatch("axiosPost", proces);
   },
 
-  async sendComment({ state }, text) {
-    console.log("sendComment");
-    console.log(text);
-    console.log(parseInt(state.selectedVoice.id));
-    await this.$axios
-      .post(
-        "http://localhost:8080/ava/postComment",
-        { content: text, replyTo: parseInt(state.selectedVoice.id) },
-        { headers: { "Content-Type": "application/json" } }
-      )
-      .then((res) => console.log(res));
+  async sendComment({ state, dispatch }, text) {
+    let proces = { body: {}, url: "" };
+    proces.body = { content: text, replyTo: parseInt(state.selectedVoice.id) };
+    proces.url = "http://localhost:8080/postComment";
+    dispatch("axiosPost", proces);
   },
 
-  async getFollowedVoices({ commit }) {
-    await this.$axios
-      .get("http://localhost:8080/ava/timeline")
-      .then((res) => commit("setNews", res.data.timeLine));
+  async getFollowedVoices({ dispatch, commit }) {
+    ////////////////////////////////////////////////////////////
+    let proces = { body: {}, url: "" };
+    proces.url = "http://localhost:8080/followedVoices";
+    let res = await dispatch("axiosGet", proces);
+    commit("setNews", res.data.timeLine);
   },
 
-  async getComments({ commit }, ava_id) {
-    await this.$axios
-      .post(
-        "http://localhost:8080/ava/comments",
-        { id: ava_id },
-        { headers: { "Content-Type": "application/json" } }
-      )
-      .then((res) => commit("setselectedVoice_comments", res.data.comments));
+  async getFollowedUsers({ dispatch, commit }) {
+    let proces = { body: {}, url: "" };
+    proces.url = "http://localhost:8080/followdUserList";
+    let res = await dispatch("axiosGet", proces);
+    commit("setFollowed", res.data.followed);
+    console.log("followed");
+    console.log(res);
   },
 
-  async getVoiceOfUser({ commit }, name) {
-    console.log("getVoiceOfUser");
+  async getBlockedUsers({ dispatch, commit }) {
+    let proces = { body: {}, url: "" };
+    proces.url = "http://localhost:8080/blockedUserList";
+    let res = await dispatch("axiosGet", proces);
+    commit("setBlocked", res.data.blocked);
+  },
+
+  async getComments({ dispatch, commit }, ava_id) {
+    let proces = { body: {}, url: "" };
+    proces.body = { id: ava_id };
+    proces.url = "http://localhost:8080/comments";
+    let res = await dispatch("axiosPost", proces);
+    commit("setselectedVoice_comments", res.data.comments);
+  },
+
+  async getVoiceOfUser({ dispatch, commit }, name) {
+    ////////////////////////////////////////////////////////////
     commit("setSelectedUser_Name", name);
-    await this.$axios
-      .post(
-        "http://localhost:8080/ava/user",
-        { username: name },
-        { headers: { "Content-Type": "application/json" } }
-      )
-      .then((res) => commit("setSelectedUser_voices", res.data.avas));
+    let proces = { body: {}, url: "" };
+    proces.body = { username: name };
+    proces.url = "http://localhost:8080/userAva";
+    let res = await dispatch("axiosPost", proces);
+    dispatch("getFollowedUsers");
+    dispatch("getBlockedUsers");
+    commit("setSelectedUser_voices", res.data.avas);
     commit("openUserPan");
-
-    console.log(" out getVoiceOfUser");
   },
 
-  async getselfVoice({ commit, state }) {
-    console.log("getselfVoice");
+  async getselfVoice({ dispatch, commit, state }) {
     commit("setSelectedUser_Name", state.signupInfo.username);
-    console.log("getselfVoice");
-
-    await this.$axios
-      .get("http://localhost:8080/ava/me", {
-        headers: { "Content-Type": "application/json" },
-      })
-      .then((res) => commit("setSelectedUser_voices", res.data.avas));
-
+    let proces = { body: {}, url: "" };
+    proces.url = "http://localhost:8080/myAva";
+    let res = await dispatch("axiosGet", proces);
+    commit("setSelectedUser_voices", res.data.avas);
     commit("openUserPan");
   },
 
-  async getHashtagAva({ commit }, title) {
-    await this.$axios
-      .post(
-        "http://localhost:8080/ava/tag",
-        { tag: title },
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      )
-      .then((res) => commit("setVoiceHashtag", res.data.avas));
+  async getHashtagAva({ dispatch, commit }, title) {
+    let proces = { body: {}, url: "" };
+    proces.body = { tag: title };
+    proces.url = "http://localhost:8080/tag";
+    let res = await dispatch("axiosPost", proces);
+    commit("setVoiceHashtag", res.data.avas);
   },
 
-  async getHots({ commit }) {
-    await this.$axios
-      .get("http://localhost:8080/ava/popular")
-      .then((res) => commit("sethotVoice", res.data.avas));
+  async getHots({ commit, dispatch }) {
+    let proces = { body: {}, url: "" };
+    proces.url = "http://localhost:8080/popular";
+    let res = await dispatch("axiosGet", proces);
+    commit("sethotVoice", res.data.avas);
   },
 
-  async likeVoice({ state }) {
-    await this.$axios.post(
-      "http://localhost:8080/ava/like/doLike",
-      { id: state.selectedVoice.id },
-      {
-        headers: { "Content-Type": "application/json" },
-      }
-    );
+  async likeVoice({ state, dispatch }) {
+    let proces = { body: {}, url: "" };
+    proces.body = { id: state.selectedVoice.id };
+    proces.url = "http://localhost:8080/doLike";
+    dispatch("axiosPost", proces);
   },
-  async getlikeList({ state, commit }) {
-    await this.$axios
-      .post(
-        "http://localhost:8080/ava/like/list",
-        { id: state.selectedVoice.id },
-        {
-          headers: { "Content-Type": "application/json" },
-        }
-      )
-      .then((res) => commit("setlikedBy", res.data.likers));
+
+  async getlikeList({ state, dispatch, commit }) {
+    let proces = { body: {}, url: "" };
+    proces.body = { id: state.selectedVoice.id };
+    proces.url = "http://localhost:8080/likerList";
+    let res = await dispatch("axiosPost", proces);
+    commit("setlikedBy", res.data.likers);
   },
 };

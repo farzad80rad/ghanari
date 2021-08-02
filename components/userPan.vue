@@ -17,16 +17,24 @@
               >
 
               <small v-if="selecteduser.name !== userName"
-                ><button class="btn btn-success" @click="followUser()">
+                ><button
+                  v-if="!followed.includes(selecteduser.name)"
+                  class="btn btn-success"
+                  @click="followUser()"
+                >
                   follow
                 </button>
-                <button class="btn btn-success" @click="unfollowUser()">
+                <button v-else class="btn btn-primary" @click="unfollowUser()">
                   unfollow
                 </button>
-                <button class="btn btn-danger" @click="blockUser()">
+                <button
+                  v-if="!blocked.includes(selecteduser.name)"
+                  class="btn btn-danger"
+                  @click="blockUser()"
+                >
                   block
                 </button>
-                <button class="btn btn-danger" @click="unblockUser()">
+                <button v-else class="btn btn-primary" @click="unblockUser()">
                   unblock
                 </button>
                 <button class="btn btn-primary" @click="enterChat()">
@@ -96,7 +104,7 @@
                     v-model="newVoiceContent"
                     cols="100"
                     rows="1"
-                    placeholder="new comment"
+                    placeholder="new ava"
                   ></textarea>
                   <div class="input-group-append">
                     <button
@@ -214,7 +222,7 @@ export default {
 
 .comment-body {
   overflow-y: scroll;
-  max-height: 60vh;
+  max-height: 65vh;
 }
 
 .main-voice {
@@ -225,7 +233,6 @@ export default {
 
 .voice-card:hover {
   cursor: pointer;
-  border: 1px solid rgb(139, 139, 139);
 }
 .voice-card {
   opacity: 0.8;

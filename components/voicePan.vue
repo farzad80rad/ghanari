@@ -55,7 +55,7 @@
                     v-for="person in likedBy"
                     class="text-secondary ml-3 user-text-liked"
                     @click="$store.dispatch('getVoiceOfUser', person.username)"
-                    :key="person"
+                    :key="person.id"
                   >
                     {{ person.username }}
                   </a>
@@ -82,7 +82,7 @@
                       class="mr-2 rounded-circle"
                       style="width: 40px;"
                     />
-                    {{ currentComment.publisher }}</span
+                    {{ currentComment.sender }}</span
                   >
                   <small class="mr-4"
                     ><i
@@ -261,7 +261,6 @@ export default {
 }
 .comment-card:hover {
   cursor: pointer;
-  border: 1px solid rgb(139, 139, 139);
   opacity: 1;
 }
 .sendBtn {

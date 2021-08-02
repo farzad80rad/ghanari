@@ -9,20 +9,36 @@
                 src="download.jfif"
                 alt="John Doe"
                 class="mr-2 rounded-circle"
-                style="width: 30px"
+                style="width: 30px;"
               />
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link tap-pan active" @click=" $store.dispatch('messageList')" data-toggle="tab" href="#chats"
+            <a
+              class="nav-link tap-pan active"
+              @click="$store.dispatch('messageList')"
+              data-toggle="tab"
+              href="#chats"
               >Chats</a
             >
           </li>
           <li class="nav-item">
-            <a class="nav-link tap-pan" @click="$store.dispatch('getHots')" data-toggle="tab" href="#hots">Hots</a>
+            <a
+              class="nav-link tap-pan"
+              @click="$store.dispatch('getHots')"
+              data-toggle="tab"
+              href="#hots"
+              >Hots</a
+            >
           </li>
           <li class="nav-item">
-            <a class="nav-link tap-pan" @click="$store.dispatch('getFollowedVoices')" data-toggle="tab" href="#news">News</a>
+            <a
+              class="nav-link tap-pan"
+              @click="$store.dispatch('getFollowedVoices')"
+              data-toggle="tab"
+              href="#news"
+              >News</a
+            >
           </li>
           <li class="nav-item">
             <a class="nav-link tap-pan" data-toggle="tab" href="#hashTag"
@@ -48,7 +64,7 @@
                 src="download.jfif"
                 alt="John Doe"
                 class="mr-2 rounded-circle"
-                style="width: 30px"
+                style="width: 30px;"
               />
               {{ item }}
             </a>
@@ -61,17 +77,10 @@
           <div v-for="item in hotVoice" class="list-group" :key="item.id">
             <a
               @click="openVoicePan(item)"
-              class="
-                list-group-item
-                mb-1
-                d-flex
-                list-group-item-action
-                justify-content-between
-                align-items-center
-              "
+              class="list-group-item mb-1 d-flex list-group-item-action justify-content-between align-items-center"
             >
               <span
-                >{{ item.publisher }}
+                >{{ item.sender }}
                 <small class="pl-4">{{
                   shrinkString(item.content, 20)
                 }}</small></span
@@ -94,12 +103,12 @@
               @click="openVoicePan(item)"
               href="#"
               class="list-group-item mb-1 list-group-item-action"
-              >{{ item.publisher }}
+              >{{ item.sender }}
               <small class="pl-4">{{
                 shrinkString(item.content, 20)
               }}</small></a
             >
-          </div >
+          </div>
         </div>
 
         <!-- hashtag -->
@@ -122,15 +131,20 @@
               placeholder="hashtag"
             ></textarea>
             <div class="input-group-append">
-              <button class="btn btn-success" @click="$store.dispatch('getHashtagAva',hashtagFormat)">sreach</button>
+              <button
+                class="btn btn-success"
+                @click="$store.dispatch('getHashtagAva', hashtagFormat)"
+              >
+                sreach
+              </button>
             </div>
           </div>
           <div v-for="item in voicehashtags" class="list-group" :key="item.id">
             <a
-              @click="$store.dispatch('openVoicePan',item)"
+              @click="$store.dispatch('openVoicePan', item)"
               href="#"
               class="list-group-item mb-1 list-group-item-action"
-              >{{ item.publisher }}
+              >{{ item.sender }}
               <small class="pl-4">{{
                 shrinkString(item.content, 20)
               }}</small></a
@@ -143,53 +157,52 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState } from "vuex";
 
 export default {
-  data () { 
-    return{    hashtagToSearch: ""
-}
+  data() {
+    return { hashtagToSearch: "" };
   },
   computed: {
     ...mapState([
-      'state',
-      'followed',
-      'hotVoice',
-      'userName',
-      'contacts',
-      'newVoices',
-      'voicehashtags',
+      "state",
+      "followed",
+      "hotVoice",
+      "userName",
+      "contacts",
+      "newVoices",
+      "voicehashtags",
     ]),
-    hashtagFormat(){
+    hashtagFormat() {
       return "#" + this.hashtagToSearch;
-    }
+    },
   },
   methods: {
-    openSelfPanel(){
-    this.$store.dispatch("getselfVoice");
+    openSelfPanel() {
+      this.$store.dispatch("getselfVoice");
     },
     shrinkString(s, size) {
-      if (s == null)
-        return s;
-      return s.substring(0, 10) + '...'
+      if (s == null) return s;
+      if (s.length < 24) return s;
+      return s.substring(0, 24) + "...";
     },
     openVoicePan(item) {
-      this.$store.dispatch('openVoicePan',item)
+      this.$store.dispatch("openVoicePan", item);
     },
     openChat(name) {
-      this.$store.dispatch('reciveMessage',name);
+      this.$store.dispatch("reciveMessage", name);
     },
     openUserPan() {
-      this.$store.commit('openUserPan')
+      this.$store.commit("openUserPan");
     },
   },
-}
+};
 </script>
 
 <style lang="css" scoped>
 .my-container {
-    background-color: rgb(15 32 49);
-  max-height: 96vh;
+  background-color: rgb(15 32 49);
+  max-height: 95vh;
   overflow: hidden;
 }
 .tab-content {
