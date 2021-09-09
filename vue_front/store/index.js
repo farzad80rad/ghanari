@@ -309,7 +309,10 @@ export const actions = {
 
   async sendComment({ state, dispatch }, text) {
     let proces = { body: {}, url: "" };
-    proces.body = { content: text, replyTo: parseInt(state.selectedVoice.id) };
+    proces.body = {
+      content: text,
+      sorcevoiceid: parseInt(state.selectedVoice.id),
+    };
     proces.url = "http://localhost:8080/postComment";
     dispatch("axiosPost", proces);
   },

@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"fmt"
 	"github.com/farzad80rad/ghanari/goServer/db"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -47,6 +48,7 @@ func getPostCommentHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
 		"message": "post comment successfully",
 	})
+	fmt.Println("should be done" , comment)
 	return
 }
 

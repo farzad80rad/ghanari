@@ -90,6 +90,7 @@ func (db *DB) PostAva(a Ava) error {
 
 func (db *DB) PostComment(a Ava) error {
 	var err error
+	fmt.Println(a)
 	_, err = db.db.Exec(postComment, a.SorceVoiceId, a.Content)
 	state := err != nil
 	if state {
